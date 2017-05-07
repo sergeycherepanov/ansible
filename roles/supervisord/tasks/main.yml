@@ -1,0 +1,8 @@
+---
+- name: Install supervisord
+  easy_install:
+    name: supervisor
+
+- name: Install supervisor-stdout
+  easy_install:
+    name: supervisor-stdout

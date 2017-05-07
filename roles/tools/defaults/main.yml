@@ -1,0 +1,26 @@
+---
+base_packages:
+  - python-software-properties 
+  - python-setuptools
+  - python-pip
+  - software-properties-common 
+  - apt-transport-https
+  - ca-certificates
+  - curl
+  - wget
+  - git-core
+  - htop
+  - iftop
+  - sudo
+  - unzip
+  - vim
+  - mcrypt
+  - mysql-client
+  - rsync
+  - ntp
+  - make
+  - procps
+  - zip
+  - unzip
+  - redis-tools
+  - netcat-openbsd

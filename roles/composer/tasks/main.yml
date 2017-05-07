@@ -1,0 +1,20 @@
+---
+- name: Downloading composer to /usr/local/bin/composer.phar
+  get_url:
+    url: https://getcomposer.org/composer.phar
+    dest: /usr/local/bin/composer.phar
+    mode: u=rwx,g=rx,o=rx
+
+- name: Creating composer wrapper /usr/local/bin/composer
+  copy:
+    src: files/bin/composer
+    dest: /usr/local/bin/composer
+    owner: root
+    mode: u=rwx,g=rx,o=rx
+
+- name: Creating composer home
+  file: 
+    path: /usr/local/composer
+    state: directory
+    owner: "root"
+    mode: u=rwx,g=rwx,o=rwx

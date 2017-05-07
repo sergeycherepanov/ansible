@@ -1,0 +1,116 @@
+---
+- name: 'Print php.ini configs what will be affected:'
+  debug: var=php_ini_path_list
+  
+- name: Set date.timezone to UTC
+  ini_file:
+    dest: "{{ item }}"
+    section: Date
+    option: date.timezone
+    value: UTC
+  with_items: "{{ php_ini_path_list }}"
+  
+- name: Set opcache.enable to 1
+  ini_file:
+    dest: "{{ item }}"
+    section: Opcache
+    option: opcache.enable
+    value: 1
+  with_items: "{{ php_ini_path_list }}"
+
+- name: Set opcache.enable_cli to 0
+  ini_file:
+    dest: "{{ item }}"
+    section: Opcache
+    option: opcache.enable_cli
+    value: 0
+  with_items: "{{ php_ini_path_list }}"
+
+- name: Set opcache.interned_strings_buffer to 8
+  ini_file:
+    dest: "{{ item }}"
+    section: Opcache
+    option: opcache.interned_strings_buffer
+    value: 32
+  with_items: "{{ php_ini_path_list }}"
+
+- name: Set opcache.max_accelerated_files to 4000
+  ini_file:
+    dest: "{{ item }}"
+    section: Opcache
+    option: opcache.max_accelerated_files
+    value: 32531
+  with_items: "{{ php_ini_path_list }}"
+
+- name: Set opcache.revalidate_freq to 0
+  ini_file:
+    dest: "{{ item }}"
+    section: Opcache
+    option: opcache.revalidate_freq
+    value: 0
+  with_items: "{{ php_ini_path_list }}"
+
+- name: Set opcache.fast_shutdown to 0
+  ini_file:
+    dest: "{{ item }}"
+    section: Opcache
+    option: opcache.fast_shutdown
+    value: 0
+  with_items: "{{ php_ini_path_list }}"
+  
+
+- name: Set opcache.memory_consumption to 128
+  ini_file:
+    dest: "{{ item }}"
+    section: Opcache
+    option: opcache.memory_consumption
+    value: 128
+  with_items: "{{ php_ini_path_list }}"
+
+- name: Set cgi.fix_pathinfo to 0
+  ini_file:
+    dest: "{{ item }}"
+    section: PHP
+    option: cgi.fix_pathinfo
+    value: 0
+  with_items: "{{ php_ini_path_list }}"
+
+- name: Set short_open_tag to Off
+  ini_file:
+    dest: "{{ item }}"
+    section: PHP
+    option: short_open_tag
+    value: Off
+  with_items: "{{ php_ini_path_list }}"
+
+- name: Set memory_limit to 512M
+  ini_file:
+    dest: "{{ item }}"
+    section: PHP
+    option: memory_limit
+    value: 512M
+  with_items: "{{ php_ini_path_list }}"
+
+- name: Set detect_unicode to Off
+  ini_file:
+    dest: "{{ item }}"
+    section: PHP
+    option: detect_unicode
+    value: Off
+  with_items: "{{ php_ini_path_list }}"
+
+- name: Set upload_max_filesize to 256M
+  ini_file:
+    dest: "{{ item }}"
+    section: PHP
+    option: upload_max_filesize
+    value: 256M
+  with_items: "{{ php_ini_path_list }}"
+
+- name: Set post_max_size to 256M
+  ini_file:
+    dest: "{{ item }}"
+    section: PHP
+    option: post_max_size
+    value: 256M
+  with_items: "{{ php_ini_path_list }}"

@@ -1,0 +1,12 @@
+---
+- hosts: localhost
+  vars: 
+    - php_ini_path_list: []
+  roles:
+    - roles/tools
+    - roles/composer
+    - roles/php70-base
+    - roles/php70-fpm
+    - roles/php70-config
+    - roles/nginx
+    - roles/nodejs

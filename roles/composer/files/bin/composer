@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+CURRENT_USER="$(whoami)"
+
+[[ ! -d "/usr/local/composer/${CURRENT_USER}" ]] && mkdir -p "/usr/local/composer/${CURRENT_USER}"
+
+COMPOSER_HOME="/usr/local/composer/${CURRENT_USER}" /usr/local/bin/composer.phar "$@"

@@ -1,0 +1,21 @@
+---
+- name: Install nginx
+  apt:
+    pkg: nginx
+    state: present
+
+- name: "Creates /etc/nginx/nginx.conf"
+  template: 
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+
+- name: "Creates /etc/nginx/sites-available/"
+  copy: 
+    src: /etc/nginx/sites-available/
+    dest: /etc/nginx/sites-available/
+    remote_src: yes
+    directory_mode: yes
+    owner: root
+    group: root
