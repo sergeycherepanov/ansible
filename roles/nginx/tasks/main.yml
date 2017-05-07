@@ -13,9 +13,11 @@
 
 - name: "Creates /etc/nginx/sites-available/"
   copy: 
-    src: /etc/nginx/sites-available/
-    dest: /etc/nginx/sites-available/
+    src: /etc/nginx/sites-available
+    dest: /etc/nginx/sites-available
     remote_src: yes
     directory_mode: yes
+    recursive: True
+    delete: False
     owner: root
     group: root
