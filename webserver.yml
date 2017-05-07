@@ -10,4 +10,4 @@
     - roles/php70-config
     - roles/nginx
     - roles/nodejs
-    - roles/mysql-server
+    - roles/percona-server
