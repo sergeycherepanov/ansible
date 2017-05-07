@@ -164,8 +164,8 @@
 
 - name: Setting plugin=mysql_native_password
   shell: |
-    mysqld_safe --skip-grant-tables > /dev/null 2>&1 &
-    sleep 10 && mysql -uroot -e 'update user set plugin="mysql_native_password";' mysql && pgrep mysql | xargs -n0 kill -9
+    mysqld_safe --skip-grant-tables &
+    sleep 10 && mysql -uroot -e 'update user set plugin="mysql_native_password";' mysql && pgrep mysql | xargs kill -9
   args:
     chdir: /tmp
   become: yes
