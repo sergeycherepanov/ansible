@@ -10,13 +10,6 @@
   apt: 
     update_cache: yes
 
-- name: Setting default mysql root password to root
-  shell: |
-    echo "percona-server-server-5.7 percona-server-server/root_password password root" | debconf-set-selections
-    echo "percona-server-server-5.7 percona-server-server/root_password_again password root" | debconf-set-selections
-  args:
-    chdir: /tmp
-
 - name: Install percona-server-server-5.7
   apt:
     pkg: percona-server-server-5.7
@@ -30,8 +23,7 @@
 - name: Setting plugin=dmysql_native_password
   shell: |
     mysqld_safe --skip-grant-tables &
-    mysql -uroot -e 'update user set plugin="mysql_native_password";' mysql
-    kill -9 $(pgrep mysql)
+    mysql -uroot -e 'update user set plugin="mysql_native_password";' mysql && pgrep mysql | xargs kill -9
   args:
     chdir: /tmp
 
