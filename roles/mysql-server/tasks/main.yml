@@ -1,0 +1,159 @@
+---
+- name: Install mysql-server
+  apt:
+    pkg: mysql-server
+    state: present
+
+- name: Install mysql-client
+  apt:
+    pkg: mysql-client
+    state: present
+
+- name: Setting max_allowed_packet to 512M
+  ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: max_allowed_packet
+    value: 512M
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: max_allowed_packet
+    value: 512M
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: thread_cache_size
+    value: 8
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: wait_timeout
+    value: 900
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: sort_buffer_size
+    value: 16M
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: read_rnd_buffer_size
+    value: 16M
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: read_buffer_size
+    value: 16M
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: join_buffer_size
+    value: 16M
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: key_buffer_size
+    value: 512M
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: tmp_table_size
+    value: 256M
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: max_heap_table_size
+    value: 256M
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: query_cache_size
+    value: 64M
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: innodb_file_per_table
+    value: 1
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: innodb_thread_concurrency
+    value: 8
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: innodb_lock_wait_timeout
+    value: 300
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: innodb_flush_method
+    value: O_DIRECT
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: innodb_log_files_in_group
+    value: 2
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: innodb_log_file_size
+    value: 256M
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: innodb_log_buffer_size
+    value: 16M
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: innodb_flush_log_at_trx_commit
+    value: 2
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: innodb_buffer_pool_size
+    value: 1024M
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: lower_case_table_names
+    value: 2
+
+- ini_file:
+    dest: /etc/mysql/conf.d/mysql.cnf
+    section: mysqld
+    option: expire_logs_days
+    value: 30
+
+- name: Remove log files
+  shell: rm -rf /var/lib/mysql/ib*
+
+- name: Restart mysql
+  service:
+    name: mysql
+    state: restarted
+
+

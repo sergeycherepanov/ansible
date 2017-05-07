@@ -26,7 +26,7 @@
     value: 0
   with_items: "{{ php_ini_path_list }}"
 
-- name: Set opcache.interned_strings_buffer to 8
+- name: Set opcache.interned_strings_buffer to 32
   ini_file:
     dest: "{{ item }}"
     section: Opcache
@@ -34,7 +34,7 @@
     value: 32
   with_items: "{{ php_ini_path_list }}"
 
-- name: Set opcache.max_accelerated_files to 4000
+- name: Set opcache.max_accelerated_files to 32531
   ini_file:
     dest: "{{ item }}"
     section: Opcache
@@ -48,6 +48,14 @@
     section: Opcache
     option: opcache.revalidate_freq
     value: 0
+  with_items: "{{ php_ini_path_list }}"
+
+- name: Set opcache.validate_timestamps to 1
+  ini_file:
+    dest: "{{ item }}"
+    section: Opcache
+    option: opcache.validate_timestamps
+    value: 1
   with_items: "{{ php_ini_path_list }}"
 
 - name: Set opcache.fast_shutdown to 0
@@ -114,3 +122,8 @@
     option: post_max_size
     value: 256M
   with_items: "{{ php_ini_path_list }}"
+
+- name: Restart php-fpm
+  service:
+    name: php7.0-fpm
+    state: restarted

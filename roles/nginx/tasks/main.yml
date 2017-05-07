@@ -19,3 +19,8 @@
     force: no
     owner: root
     group: root
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
