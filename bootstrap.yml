@@ -3,4 +3,4 @@
   gather_facts: False
   tasks:
     - name: 'install python'
-      raw: test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)
+      raw: "sh -c 'test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)'"
