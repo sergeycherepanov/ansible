@@ -30,7 +30,7 @@
 - name: Setting plugin=dmysql_native_password
   shell: |
     mysqld_safe --skip-grant-tables &
-    mysql -uroot -e "update user set plugin="mysql_native_password";" mysql
+    mysql -uroot -e 'update user set plugin="mysql_native_password";' mysql
     kill -9 $(pgrep mysql)
   args:
     chdir: /tmp
