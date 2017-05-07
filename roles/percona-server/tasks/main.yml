@@ -1,6 +1,6 @@
 ---
 - name: Install percona repository
-  shell: ^
+  shell: |
     wget https://repo.percona.com/apt/percona-release_0.1-4.$(lsb_release -sc)_all.deb
     dpkg -i percona-release_0.1-4.$(lsb_release -sc)_all.deb
   args:
