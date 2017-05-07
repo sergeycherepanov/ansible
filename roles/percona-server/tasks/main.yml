@@ -15,11 +15,6 @@
     pkg: percona-server-server-5.7
     state: present
 
-- name: Install percona-server-client-5.7
-  apt:
-    pkg: percona-server-client-5.7
-    state: present
-
 - name: Setting max_allowed_packet to 512M
   ini_file:
     dest: /etc/mysql/conf.d/mysql.cnf
