@@ -1,12 +1,23 @@
 ---
-- name: Install mysql-server
+- name: Install percona repository
+  shell: ^
+    wget https://repo.percona.com/apt/percona-release_0.1-4.$(lsb_release -sc)_all.deb
+    dpkg -i percona-release_0.1-4.$(lsb_release -sc)_all.deb
+  args:
+    chdir: /tmp
+
+- name: Update apt cache
+  apt: 
+    update_cache: yes
+
+- name: Install percona-server-server-5.7
   apt:
-    pkg: mysql-server
+    pkg: percona-server-server-5.7
     state: present
 
-- name: Install mysql-client
+- name: Install percona-server-client-5.7
   apt:
-    pkg: mysql-client
+    pkg: percona-server-client-5.7
     state: present
 
 - name: Setting max_allowed_packet to 512M
