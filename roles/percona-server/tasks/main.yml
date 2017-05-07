@@ -22,6 +22,19 @@
     pkg: percona-server-server-5.7
     state: present
 
+- name: Stopping mysql
+  service:
+    name: mysql
+    state: stopped
+
+- name: Setting plugin=dmysql_native_password
+  shell: |
+    mysqld_safe --skip-grant-tables &
+    mysql -uroot -e mysql "update user set plugin="mysql_native_password";"
+    kill -9 $(pgrep mysql)
+  args:
+    chdir: /tmp
+
 - name: Setting max_allowed_packet to 512M
   ini_file:
     dest: /etc/mysql/conf.d/mysql.cnf
