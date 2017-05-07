@@ -13,7 +13,7 @@
 
 - name: "Creates /etc/nginx/sites-available"
   copy: 
-    src: ../sites-available
+    src: roles/nginx/templates/sites-available
     dest: /etc/nginx/sites-available
     directory_mode: yes
     force: no
