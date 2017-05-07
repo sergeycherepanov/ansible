@@ -169,9 +169,9 @@
 - name: Remove log files
   shell: rm -rf /var/lib/mysql/ib*
 
-- name: Restart mysql
+- name: Starting mysql
   service:
     name: mysql
-    state: restarted
+    state: started
 
 
