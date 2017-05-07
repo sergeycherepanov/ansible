@@ -27,7 +27,7 @@
   args:
     chdir: /tmp
   become: yes
-    become_user: www-data
+  become_user: mysql
 
 - name: Setting max_allowed_packet to 512M
   ini_file:
