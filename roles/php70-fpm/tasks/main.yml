@@ -36,12 +36,12 @@
     owner: www-data
     recurse: yes
 
-- name: Set error_log to "/dev/stderr" in php-fpm.conf
+- name: Set error_log to "/var/log/php/error.log" in php-fpm.conf
   ini_file:
     dest: /etc/php/7.0/fpm/php-fpm.conf
     section: global
     option: error_log
-    value: /dev/stderr
+    value: /var/log/php/error.log
 
 - name: Set log_level to "notice" in php-fpm.conf
   ini_file:
@@ -90,12 +90,12 @@
     option: request_slowlog_timeout 
     value: 10s
 
-- name: Set slowlog to "/dev/stderr" in www.conf
+- name: Set slowlog to "/var/log/php/slow.log" in www.conf
   ini_file:
     dest: /etc/php/7.0/fpm/pool.d/www.conf
     section: www
     option: slowlog
-    value: /dev/stderr
+    value: /var/log/php/slow.log
 
 - name: Set catch_workers_output to "yes" in www.conf
   ini_file:

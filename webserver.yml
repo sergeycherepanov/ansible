@@ -10,3 +10,11 @@
     - roles/php70-config
     - roles/nginx
     - roles/nodejs
+  tasks:
+    - service:
+      name: nginx
+      state: restarted
+
+    - service:
+      name: php7.0-fpm
+      state: restarted
