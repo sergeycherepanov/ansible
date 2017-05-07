@@ -23,16 +23,22 @@
   set_fact: 
     php_ini_path_list: "{{ php_ini_path_list + [ '/etc/php/7.0/fpm/php.ini' ] }} "
 
-- name: Set max_execution_time to 90 for fpm php.ini
+- name: Set max_execution_time to 900 for fpm php.ini
   ini_file:
     dest: /etc/php/7.0/fpm/php.ini
     section: PHP
     option: max_execution_time
-    value: Off
+    value: 900
 
-- name: "Change owner to www-data for /etc/php"
+- name: Change owner to www-data for /etc/php
   file:
     dest: /etc/php
+    owner: www-data
+    recurse: yes
+
+- name: Change owner to www-data for /var/log/php
+  file:
+    dest: /var/log/php
     owner: www-data
     recurse: yes
 
@@ -50,24 +56,26 @@
     option: log_level 
     value: notice
     
-- name: Set daemonize to no in php-fpm.conf
+- name: Set daemonize to yes in php-fpm.conf
   ini_file:
     dest: /etc/php/7.0/fpm/php-fpm.conf
     section: global
     option: daemonize
-    value: "no"
+    value: "yes"
     
-- name: Remove user directive from www.conf
-  lineinfile:
-    dest: '/etc/php/7.0/fpm/pool.d/www.conf'
-    regexp: '^\s*\;{0,1}\s*user'
-    state: absent
+- name: Setiing user to www-data
+  ini_file:
+    dest: /etc/php/7.0/fpm/pool.d/www.conf
+    section: www
+    option: user 
+    value: www-data
 
-- name: Remove group directive from www.conf
-  lineinfile:
-    dest: '/etc/php/7.0/fpm/pool.d/www.conf'
-    regexp: '^\s*\;{0,1}\s*group'
-    state: absent
+- name: Setiing group to www-data
+  ini_file:
+    dest: /etc/php/7.0/fpm/pool.d/www.conf
+    section: www
+    option: group 
+    value: www-data
 
 - name: Set listen to 9000 in www.conf
   ini_file:
@@ -76,19 +84,19 @@
     option: listen 
     value: 9000
 
-- name: Set request_terminate_timeout to "180s" in www.conf
+- name: Set request_terminate_timeout to "900s" in www.conf
   ini_file:
     dest: /etc/php/7.0/fpm/pool.d/www.conf
     section: www
     option: request_terminate_timeout 
-    value: 180s
+    value: 900s
 
 - name: Set request_slowlog_timeout to "180s" in www.conf
   ini_file:
     dest: /etc/php/7.0/fpm/pool.d/www.conf
     section: www
     option: request_slowlog_timeout 
-    value: 10s
+    value: 180s
 
 - name: Set slowlog to "/var/log/php/slow.log" in www.conf
   ini_file:
