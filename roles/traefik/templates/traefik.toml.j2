@@ -9,6 +9,8 @@ logLevel = "WARN"
 #
 # defaultEntryPoints = ["http", "https"]
 
+defaultEntryPoints = ["http"]
+
 [entryPoints.http]
 address = ":80"
 
@@ -16,4 +18,4 @@ address = ":80"
 address = ":8000"
 
 [file]
-watch = false
+watch = true
