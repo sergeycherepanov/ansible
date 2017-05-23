@@ -1,0 +1,48 @@
+---
+- name: Install nginx
+  apt:
+    pkg: nginx
+    state: present
+    
+- name: "Downloading traefik"
+  get_url:
+    url: https://github.com/containous/traefik/releases/download/v1.2.3/traefik_linux-arm64
+    dest: /usr/local/bin/traefik
+    mode: 0755
+    owner: root
+    group: root
+
+- name: "Creating /etc/traefik/traefik.toml"
+  template:
+    src: traefik.toml.j2
+    dest: /etc/traefik/traefik.toml
+    owner: root
+    group: root
+
+- name: "Creating /lib/systemd/system/traefik.service"
+  template:
+    src: traefik.service.j2
+    dest: traefik.toml.j2
+    owner: root
+    group: root
+
+- name: "Enable traefik service"
+  systemd:
+    name: traefik
+    state: started
+    enabled: yes
+
+- name: "Setup default routing"
+  blockinfile:
+    dest: /etc/traefik/traefik.toml
+    block: |
+      [frontends.default]
+      backend = "default"
+      passHostHeader = true
+      [frontends.default.routes.default]
+      priority = 100
+      [backends.default.LoadBalancer]
+      method = "wrr"
+      [backends.default.servers.localhost]
+      url = "https://127.0.0.1:1080"
+      weight = 1

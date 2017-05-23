@@ -1,0 +1,12 @@
+[Unit]
+Description=Traefik Reverse Proxy
+
+[Service]
+User=root
+Group=root
+# Environment="DO_AUTH_TOKEN={{ do_auth_token }}"
+ExecStart=/usr/local/bin/traefik
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

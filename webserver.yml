@@ -3,6 +3,7 @@
   vars: 
     - php_ini_path_list: []
   roles:
+    - roles/traefik
     - roles/tools
     - roles/composer
     - roles/php70-base

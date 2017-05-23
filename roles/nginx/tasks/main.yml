@@ -16,7 +16,7 @@
     src: roles/nginx/templates/sites-available
     dest: /etc/nginx/
     directory_mode: yes
-    force: no
+    force: yes
     owner: root
     group: root
 

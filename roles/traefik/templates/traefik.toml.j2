@@ -1,0 +1,19 @@
+# Accepted values, in order of severity: "DEBUG", "INFO", "WARN", "ERROR", "FATAL", "PANIC"
+logLevel = "WARN"
+
+# Entrypoints to be used by frontends that do not specify any entrypoint.
+# Each frontend can specify its own entrypoints.
+#
+# Optional
+# Default: ["http"]
+#
+# defaultEntryPoints = ["http", "https"]
+
+[entryPoints.http]
+address = ":80"
+
+[web]
+address = ":8000"
+
+[file]
+watch = false
