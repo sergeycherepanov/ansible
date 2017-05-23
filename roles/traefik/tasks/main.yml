@@ -1,7 +1,7 @@
 --- 
 - name: "Downloading traefik"
   get_url:
-    url: https://github.com/containous/traefik/releases/download/v1.2.3/traefik_linux-arm64
+    url: https://github.com/containous/traefik/releases/download/v1.2.3/traefik_linux-amd64
     dest: /usr/local/bin/traefik
     mode: 0755
     owner: root
