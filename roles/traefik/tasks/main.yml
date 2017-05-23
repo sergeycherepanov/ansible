@@ -22,7 +22,7 @@
 - name: "Creating /lib/systemd/system/traefik.service"
   template:
     src: traefik.service.j2
-    dest: traefik.toml.j2
+    dest: /lib/systemd/system/traefik.service
     owner: root
     group: root
 
