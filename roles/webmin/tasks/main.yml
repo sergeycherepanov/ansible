@@ -17,7 +17,7 @@
     block: |
       [frontends.webmin]
       backend = "webmin"
-      passHostHeader = true
+      passHostHeader = false
       [frontends.webmin.routes.default]
       priority = 10
       rule = "PathPrefixStrip:/webmin"
@@ -33,7 +33,13 @@
     line: "webprefix=/webmin"
     state: present
 
-- name: "Adding webprefixnoredir=0 to /etc/webmin/config"
+- name: "Adding webprefix=/webmin to /etc/webmin/miniserv.conf"
+  lineinfile: 
+    dest: "/etc/webmin/miniserv.conf"
+    line: "webprefix=/webmin"
+    state: present
+
+- name: "Adding webprefixnoredir=1 to /etc/webmin/config"
   lineinfile: 
     dest: "/etc/webmin/config"
     line: "webprefixnoredir=1"
@@ -49,6 +55,12 @@
   lineinfile: 
     dest: "/etc/webmin/config"
     line: "referers={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    state: present
+
+- name: "Adding referers_none=1 to /etc/webmin/config"
+  lineinfile: 
+    dest: "/etc/webmin/config"
+    line: "referers_none=1"
     state: present
 
 - name: "Adding cookiepath=/webmin to /etc/webmin/miniserv.conf"
@@ -67,6 +79,23 @@
     dest: "/etc/webmin/miniserv.conf"
     line: "ssl_redirect=0"
 
+- name: "Patching /usr/share/webmin/miniserv.pl"
+  replace:
+    dest: /usr/share/webmin/miniserv.pl
+    regexp: \$prot\:\/\/\$hostport\$redir
+    replace: $prot://$host$redir
+
+- name: "Patching /usr/share/webmin/miniserv.pl"
+  replace:
+    dest: /usr/share/webmin/miniserv.pl
+    regexp: \$prot\:\/\/\$hostport\$in\{'page'\}
+    replace: $prot://$host$config{webprefix}$in{'page'}
+
+- name: "Patching /usr/share/webmin/miniserv.pl"
+  replace:
+    dest: /usr/share/webmin/miniserv.pl
+    regexp: \$prot\:\/\/\$hostport\$page\/
+    replace: $prot://$host$page/
 
 - name: Restart traefik
   service:
