@@ -1,0 +1,29 @@
+---
+- name: "Downloading webmin"
+  get_url:
+    url: http://prdownloads.sourceforge.net/webadmin/webmin_1.840_all.deb
+    dest: /tmp/webmin.deb
+    mode: 0755
+    owner: root
+    group: root
+
+- name: "Install webmin"
+  apt: deb="/tmp/webmin.deb"
+  sudo: true
+
+- name: "Adding traefik config"
+  blockinfile:
+    dest: /etc/traefik/traefik.toml
+    marker: "# {mark} WEBMIN"
+    block: |
+      [frontends.webmin]
+      backend = "webmin"
+      passHostHeader = true
+      [frontends.webmin.routes.default]
+      priority = 10
+      rule = "PathPrefix:/webmin"
+      [backends.webmin.LoadBalancer]
+      method = "wrr"
+      [backends.webmin.servers.localhost]
+      url = "https://127.0.0.1:3000"
+      weight = 1

@@ -1,5 +1,5 @@
 ---
-- name: 'Print php.ini configs what will be affected:'
+- name: 'Print php.ini configs what will be affected'
   debug: var=php_ini_path_list
   
 - name: Set date.timezone to UTC

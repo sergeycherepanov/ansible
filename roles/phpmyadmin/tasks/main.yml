@@ -1,0 +1,67 @@
+---
+- name: Installing phpmyadmin
+  apt:
+    pkg: phpmyadmin
+    state: absent
+
+
+- name: "Creating /usr/share/phpmyadmin"
+  file: 
+    dest: /usr/share/phpmyadmin
+    owner: www-data
+    group: www-data
+    state: directory
+
+- name: Installing phpmyadmin via composer
+  shell: composer create-project phpmyadmin/phpmyadmin --repository-url=https://www.phpmyadmin.net/packages.json --no-dev --working-dir=/usr/share/phpmyadmin  
+
+- name: "Creating /etc/nginx/sites-available/phpmyadmin.conf"
+  copy: 
+    src: roles/phpmyadmin/templates/sites-available/phpmyadmin.conf
+    dest: /etc/nginx/sites-available/phpmyadmin.conf
+    owner: root
+    group: root
+
+- name: "Link /etc/nginx/sites-enabled/phpmyadmin.conf"
+  file: 
+    src: /etc/nginx/sites-available/phpmyadmin.conf
+    dest: /etc/nginx/sites-enabled/phpmyadmin.conf
+    owner: root
+    group: root
+    state: link
+#
+#- name: "Link /usr/share/phpmyadmin/phpmyadmin"
+#  file: 
+#    src: /usr/share/phpmyadmin
+#    dest: /usr/share/phpmyadmin/phpmyadmin
+#    owner: root
+#    group: root
+#    state: link
+
+- name: "Adding traefik config"
+  blockinfile:
+    dest: /etc/traefik/traefik.toml
+    marker: "# {mark} PHPMYADMIN"
+    state: present
+    block: |
+      [frontends.phpmyadmin]
+      backend = "phpmyadmin"
+      passHostHeader = true
+      [frontends.phpmyadmin.routes.default]
+      priority = 10
+      rule = "PathPrefix:/phpmyadmin"
+      [backends.phpmyadmin.LoadBalancer]
+      method = "wrr"
+      [backends.phpmyadmin.servers.localhost]
+      url = "http://127.0.0.1:8001/phpmyadmin/"
+      weight = 1 
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
+
+- name: Restart traefik
+  service:
+    name: traefik
+    state: restarted

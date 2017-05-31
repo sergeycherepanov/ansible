@@ -1,14 +1,14 @@
 ---
-- hosts: webservers
+- hosts: all
   vars: 
     - php_ini_path_list: []
   roles:
-    - roles/traefik
     - roles/tools
-    - roles/composer
+    - roles/nginx
+    - roles/traefik
     - roles/php70-base
     - roles/php70-fpm
     - roles/php70-config
-    - roles/nginx
+    - roles/composer
     - roles/nodejs
     - roles/percona-server

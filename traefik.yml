@@ -1,5 +1,5 @@
 ---
-- hosts: webservers
+- hosts: all
   vars: 
     - php_ini_path_list: []
   roles:

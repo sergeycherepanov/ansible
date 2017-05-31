@@ -3,5 +3,4 @@
   vars: 
     - php_ini_path_list: []
   roles:
-    - roles/tools
-    - roles/percona-server
+    - roles/webmin

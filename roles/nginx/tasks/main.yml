@@ -20,6 +20,16 @@
     owner: root
     group: root
 
+- name: "Remove /etc/nginx/sites-enabled/default"
+  file: 
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: "Remove /etc/nginx/sites-enabled/default.conf"
+  file: 
+    path: /etc/nginx/sites-enabled/default.conf
+    state: absent
+
 - name: Restart nginx
   service:
     name: nginx

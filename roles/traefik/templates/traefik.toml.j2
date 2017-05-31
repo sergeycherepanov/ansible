@@ -19,3 +19,17 @@ address = ":8000"
 
 [file]
 watch = true
+
+# 
+# # Example routing
+# 
+# [frontends.default]
+# backend = "default"
+# passHostHeader = true
+# [frontends.default.routes.default]
+# priority = 100
+# [backends.default.LoadBalancer]
+# method = "wrr"
+# [backends.default.servers.localhost]
+# url = "https://127.0.0.1:1080"
+# weight = 1

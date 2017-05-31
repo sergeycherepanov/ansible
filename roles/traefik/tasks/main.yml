@@ -31,18 +31,3 @@
     name: traefik
     state: started
     enabled: yes
-
-- name: "Setup default routing"
-  blockinfile:
-    dest: /etc/traefik/traefik.toml
-    block: |
-      [frontends.default]
-      backend = "default"
-      passHostHeader = true
-      [frontends.default.routes.default]
-      priority = 100
-      [backends.default.LoadBalancer]
-      method = "wrr"
-      [backends.default.servers.localhost]
-      url = "https://127.0.0.1:1080"
-      weight = 1

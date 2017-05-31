@@ -1,0 +1,43 @@
+---
+- name: "Creating /etc/nginx/sites-available/symfony.conf"
+  copy: 
+    src: roles/symfony/templates/sites-available/symfony.conf
+    dest: /etc/nginx/sites-available/symfony.conf
+    owner: root
+    group: root
+
+
+- name: "Link /etc/nginx/sites-enabled/symfony.conf"
+  file: 
+    src: /etc/nginx/sites-available/symfony.conf
+    dest: /etc/nginx/sites-enabled/symfony.conf
+    owner: root
+    group: root
+    state: link
+
+- name: "Adding traefik config"
+  blockinfile:
+    dest: /etc/traefik/traefik.toml
+    marker: "# {mark} SYMFONY"
+    block: |
+      [frontends.symfony]
+      backend = "symfony"
+      passHostHeader = true
+      [frontends.symfony.routes.default]
+      priority = 10
+      rule = "Path:/"
+      [backends.symfony.LoadBalancer]
+      method = "wrr"
+      [backends.symfony.servers.localhost]
+      url = "http://127.0.0.1:1085"
+      weight = 1
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
+
+- name: Restart traefik
+  service:
+    name: traefik
+    state: restarted
