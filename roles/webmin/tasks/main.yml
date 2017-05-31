@@ -17,7 +17,7 @@
     block: |
       [frontends.webmin]
       backend = "webmin"
-      passHostHeader = false
+      passHostHeader = true
       [frontends.webmin.routes.default]
       priority = 10
       rule = "PathPrefixStrip:/webmin"
