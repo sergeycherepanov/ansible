@@ -1,5 +1,5 @@
 ---
-- name: Installing phpmyadmin
+- name: Remove already installed phpmyadmin
   apt:
     pkg: phpmyadmin
     state: absent
