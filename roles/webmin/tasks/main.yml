@@ -9,7 +9,6 @@
 
 - name: "Install webmin"
   apt: deb="/tmp/webmin.deb"
-  sudo: true
 
 - name: "Adding traefik config"
   blockinfile:
@@ -21,9 +20,60 @@
       passHostHeader = true
       [frontends.webmin.routes.default]
       priority = 10
-      rule = "PathPrefix:/webmin"
+      rule = "PathPrefixStrip:/webmin"
       [backends.webmin.LoadBalancer]
       method = "wrr"
       [backends.webmin.servers.localhost]
-      url = "https://127.0.0.1:3000"
+      url = "http://127.0.0.1:10000/"
       weight = 1
+
+- name: "Adding webprefix=/webmin to /etc/webmin/config"
+  lineinfile: 
+    dest: "/etc/webmin/config"
+    line: "webprefix=/webmin"
+    state: present
+
+- name: "Adding webprefixnoredir=0 to /etc/webmin/config"
+  lineinfile: 
+    dest: "/etc/webmin/config"
+    line: "webprefixnoredir=1"
+    state: present
+
+- name: "Adding relative_redir=0 to /etc/webmin/config"
+  lineinfile: 
+    dest: "/etc/webmin/config"
+    line: "relative_redir=0"
+    state: present
+    
+- name: "Adding referers={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }} to /etc/webmin/config"
+  lineinfile: 
+    dest: "/etc/webmin/config"
+    line: "referers={{ hostvars[inventory_hostname]['ansible_default_ipv4']['address'] }}"
+    state: present
+
+- name: "Adding cookiepath=/webmin to /etc/webmin/miniserv.conf"
+  lineinfile: 
+    dest: "/etc/webmin/miniserv.conf"
+    line: "cookiepath=/webmin"
+    state: present
+
+- name: "Adding ssl=0 to /etc/webmin/miniserv.conf"
+  lineinfile: 
+    dest: "/etc/webmin/miniserv.conf"
+    line: "ssl=0"
+
+- name: "Adding ssl_redirect=0 to /etc/webmin/miniserv.conf"
+  lineinfile: 
+    dest: "/etc/webmin/miniserv.conf"
+    line: "ssl_redirect=0"
+
+
+- name: Restart traefik
+  service:
+    name: traefik
+    state: restarted
+
+- name: Restart webmin
+  service:
+    name: webmin
+    state: restarted

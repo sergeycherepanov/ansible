@@ -4,6 +4,10 @@
     pkg: phpmyadmin
     state: absent
 
+- name: "Deleting /usr/share/phpmyadmin if exists"
+  file: 
+    dest: /usr/share/phpmyadmin
+    state: absent
 
 - name: "Creating /usr/share/phpmyadmin"
   file: 
@@ -13,7 +17,9 @@
     state: directory
 
 - name: Installing phpmyadmin via composer
-  shell: composer create-project phpmyadmin/phpmyadmin --repository-url=https://www.phpmyadmin.net/packages.json --no-dev --working-dir=/usr/share/phpmyadmin  
+  command: composer create-project phpmyadmin/phpmyadmin --repository-url=https://www.phpmyadmin.net/packages.json --no-dev --working-dir=/usr/share/phpmyadmin
+  become: true
+  become_user: www-data
 
 - name: "Creating /etc/nginx/sites-available/phpmyadmin.conf"
   copy: 
@@ -53,7 +59,7 @@
       [backends.phpmyadmin.LoadBalancer]
       method = "wrr"
       [backends.phpmyadmin.servers.localhost]
-      url = "http://127.0.0.1:8001/phpmyadmin/"
+      url = "http://127.0.0.1:8001"
       weight = 1 
 
 - name: Restart nginx
