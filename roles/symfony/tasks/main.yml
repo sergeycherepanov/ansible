@@ -25,7 +25,7 @@
       passHostHeader = true
       [frontends.symfony.routes.default]
       priority = 10
-      rule = "Path:/"
+      rule = "PathPrefix:/"
       [backends.symfony.LoadBalancer]
       method = "wrr"
       [backends.symfony.servers.localhost]

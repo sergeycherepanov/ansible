@@ -10,14 +10,14 @@ ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "bootstrap.yml"
 ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "tnpm.yml"
 ```
 
-### Virtual hosts
-```
-ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "vhosts.yml"
-```
-
 ### Magento v1.x
 ```
 ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "magento1.yml"
+```
+
+### Magento Vhosts
+```
+ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "magento_vhosts.yml"
 ```
 
 ### Symfony

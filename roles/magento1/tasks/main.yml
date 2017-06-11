@@ -25,7 +25,7 @@
       passHostHeader = true
       [frontends.magento1.routes.default]
       priority = 10
-      rule = "Path:/"
+      rule = "PathPrefix:/"
       [backends.magento1.LoadBalancer]
       method = "wrr"
       [backends.magento1.servers.localhost]

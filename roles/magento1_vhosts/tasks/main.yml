@@ -1,7 +1,7 @@
 ---
 - name: "Creating /etc/nginx/sites-available/vhosts.conf"
   copy: 
-    src: roles/vhosts/templates/sites-available/vhosts.conf
+    src: roles/magento1_vhosts/templates/sites-available/vhosts.conf
     dest: /etc/nginx/sites-available/vhosts.conf
     owner: root
     group: root
@@ -25,7 +25,7 @@
       passHostHeader = true
       [frontends.vhosts.routes.default]
       priority = 10
-      rule = "Path:/"
+      rule = "PathPrefix:/"
       [backends.vhosts.LoadBalancer]
       method = "wrr"
       [backends.vhosts.servers.localhost]
