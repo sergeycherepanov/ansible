@@ -1,16 +1,16 @@
 ---
 - name: "Creating /etc/nginx/sites-available/vhosts.conf"
   copy: 
-    src: roles/magento1_vhosts/templates/sites-available/vhosts.conf
-    dest: /etc/nginx/sites-available/vhosts.conf
+    src: roles/magento1_vhosts/templates/sites-available/magento1_vhosts.conf
+    dest: /etc/nginx/sites-available/magento1_vhosts.conf
     owner: root
     group: root
 
 
 - name: "Link /etc/nginx/sites-enabled/vhosts.conf"
   copy: 
-    src: /etc/nginx/sites-available/vhosts.conf
-    dest: /etc/nginx/sites-enabled/vhosts.conf
+    src: /etc/nginx/sites-available/magento1_vhosts.conf
+    dest: /etc/nginx/sites-enabled/magento1_vhosts.conf
     owner: root
     group: root
     state: link
