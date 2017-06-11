@@ -1,5 +1,5 @@
 ---
-- name: "Creating /etc/nginx/sites-available/vhosts.conf"
+- name: "Creating /etc/nginx/sites-available/magento1_vhosts.conf"
   copy: 
     src: roles/magento1_vhosts/templates/sites-available/magento1_vhosts.conf
     dest: /etc/nginx/sites-available/magento1_vhosts.conf
