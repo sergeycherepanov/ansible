@@ -7,7 +7,7 @@
     group: root
 
 
-- name: "Link /etc/nginx/sites-enabled/vhosts.conf"
+- name: "Link /etc/nginx/sites-enabled/magento1_vhosts.conf"
   copy: 
     src: /etc/nginx/sites-available/magento1_vhosts.conf
     dest: /etc/nginx/sites-enabled/magento1_vhosts.conf
