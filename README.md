@@ -15,9 +15,9 @@ ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "tnpm.yml"
 ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "magento1.yml"
 ```
 
-### Magento Vhosts
+### Magento v1.x VHosts
 ```
-ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "magento_vhosts.yml"
+ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "magento1_vhosts.yml"
 ```
 
 ### Symfony
