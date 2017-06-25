@@ -2,13 +2,14 @@
 - hosts: all
   vars: 
     - php_ini_path_list: []
+    - php_version: 7.0
   roles:
     - roles/tools
     - roles/nginx
     - roles/traefik
-    - roles/php70-base
-    - roles/php70-fpm
-    - roles/php70-config
+    - roles/php-base
+    - roles/php-fpm
+    - roles/php-config
     - roles/composer
     - roles/nodejs
     - roles/percona-server

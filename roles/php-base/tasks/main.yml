@@ -1,0 +1,24 @@
+---
+- name: Adding ppa:ondrej/php repository
+  apt_repository: 
+    repo: 'ppa:ondrej/php'
+
+- name: Installing php70 modules
+  apt:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ php_modules }}"
+
+- name: Adding "/etc/php/{{ php_version }}/cli/php.ini" to "php_ini_path_list" array
+  set_fact: 
+    php_ini_path_list: "{{ php_ini_path_list + [ '/etc/php/{{ php_version }}/cli/php.ini' ] }} "
+
+- name: Setting max_execution_time to 0 for cli
+  ini_file:
+    dest: "{{ item }}"
+    section: PHP
+    option: max_execution_time
+    value: 0
+  with_items: 
+    - /etc/php/{{ php_version }}/cli/php.ini
+

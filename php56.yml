@@ -1,0 +1,9 @@
+---
+- hosts: all
+  vars: 
+    - php_ini_path_list: []
+    - php_version: 5.6
+  roles:
+    - roles/php-base
+    - roles/php-fpm
+    - roles/php-config
