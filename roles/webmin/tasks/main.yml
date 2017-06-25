@@ -1,7 +1,16 @@
 ---
+
+- name: "Get latest available Webmin release"
+  shell: curl --silent http://www.webmin.com/download.html | grep 'http://prdownloads.sourceforge.net/webadmin/webmin[0-9a-z\_\.\-]*.deb' -o | head -1
+  register: webmin_url_output
+
+- name: Set fact "webmin_download_url" to "{{ webmin_url_output.stdout }}" 
+  set_fact: 
+    webmin_download_url: "{{ webmin_url_output.stdout }}"
+
 - name: "Downloading webmin"
   get_url:
-    url: http://prdownloads.sourceforge.net/webadmin/webmin_1.840_all.deb
+    url: "{{ webmin_download_url }}"
     dest: /tmp/webmin.deb
     mode: 0755
     owner: root

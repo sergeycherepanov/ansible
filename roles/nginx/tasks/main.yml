@@ -11,12 +11,24 @@
     owner: root
     group: root
 
-- name: "Creates /etc/nginx/sites-available"
-  copy: 
-    src: roles/nginx/templates/sites-available
-    dest: /etc/nginx/
-    directory_mode: yes
-    force: yes
+- name: "Creates /etc/nginx/sites-available/vhosts.conf"
+  template: 
+    src: sites-available/vhosts.conf.j2
+    dest: /etc/nginx/sites-available/vhosts.conf
+    owner: root
+    group: root
+
+- name: "Creates /etc/nginx/sites-available/status.conf"
+  template: 
+    src: sites-available/status.conf.j2
+    dest: /etc/nginx/sites-available/status.conf
+    owner: root
+    group: root
+
+- name: "Creates /etc/nginx/sites-available/websocket.conf"
+  template: 
+    src: sites-available/websocket.conf.j2
+    dest: /etc/nginx/sites-available/websocket.conf
     owner: root
     group: root
 

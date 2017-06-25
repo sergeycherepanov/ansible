@@ -18,3 +18,17 @@
     state: present
   with_items: 
     - "{{ base_packages }}"
+
+- name: Download PUP {{ pup_version }}
+  get_url:
+    url: https://github.com/ericchiang/pup/releases/download/{{ pup_version }}/pup_{{ pup_version }}_linux_amd64.zip
+    dest: /tmp/pup_{{ pup_version }}_linux_amd64.zip
+
+- name: Extract PUP {{ pup_version }}
+  unarchive:
+    src: /tmp/pup_{{ pup_version }}_linux_amd64.zip
+    dest: /usr/local/bin
+    remote_src: True
+    mode: 0755
+    owner: root
+    group: root

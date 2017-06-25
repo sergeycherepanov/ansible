@@ -29,7 +29,7 @@ server {
             return 404;
         }
         include                         fastcgi_params;
-        fastcgi_pass                    127.0.0.1:9000;
+        fastcgi_pass                    127.0.0.1:90{{ php_version|default('70')|regex_replace('[^0-9]', '') }};
         fastcgi_index                   app.php;
         fastcgi_intercept_errors        on;
         fastcgi_ignore_client_abort     off;

@@ -7,3 +7,8 @@
     - roles/php-base
     - roles/php-fpm
     - roles/php-config
+  post_tasks:
+    - name: Restart php{{ php_version }}-fpm
+      service:
+        name: php{{ php_version }}-fpm
+        state: restarted
