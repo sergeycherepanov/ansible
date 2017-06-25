@@ -1,4 +1,5 @@
 ---
+pup_version: "v0.4.0"
 base_packages:
   - python-software-properties 
   - python-setuptools

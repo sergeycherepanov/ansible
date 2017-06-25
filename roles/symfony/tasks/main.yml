@@ -1,7 +1,7 @@
 ---
 - name: "Creating /etc/nginx/sites-available/symfony.conf"
-  copy: 
-    src: roles/symfony/templates/sites-available/symfony.conf
+  template: 
+    src: sites-available/symfony.conf.j2 
     dest: /etc/nginx/sites-available/symfony.conf
     owner: root
     group: root

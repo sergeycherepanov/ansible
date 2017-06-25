@@ -2,7 +2,7 @@
 - hosts: all
   vars: 
     - php_ini_path_list: []
-    - php_version: 7.0
+    - php_version: 7.0  
   roles:
     - roles/tools
     - roles/nginx
@@ -13,3 +13,8 @@
     - roles/composer
     - roles/nodejs
     - roles/percona-server
+  post_tasks:
+    - name: Restart php{{ php_version }}-fpm
+      service:
+        name: php{{ php_version }}-fpm
+        state: restarted

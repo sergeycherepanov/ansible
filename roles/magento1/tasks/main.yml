@@ -1,7 +1,7 @@
 ---
 - name: "Creating /etc/nginx/sites-available/magento1.conf"
-  copy: 
-    src: roles/magento1/templates/sites-available/magento1.conf
+  template: 
+    src: sites-available/magento1.conf.j2 
     dest: /etc/nginx/sites-available/magento1.conf
     owner: root
     group: root

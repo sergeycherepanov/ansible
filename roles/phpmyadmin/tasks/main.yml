@@ -22,8 +22,8 @@
   become_user: www-data
 
 - name: "Creating /etc/nginx/sites-available/phpmyadmin.conf"
-  copy: 
-    src: roles/phpmyadmin/templates/sites-available/phpmyadmin.conf
+  template: 
+    src: sites-available/phpmyadmin.conf.j2
     dest: /etc/nginx/sites-available/phpmyadmin.conf
     owner: root
     group: root

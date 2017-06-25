@@ -77,12 +77,12 @@
     option: group 
     value: www-data
 
-- name: Set listen to 9000 in www.conf
+- name: Set listen to 90{{ php_version|default('70')|regex_replace('[^0-9]', '') }} in www.conf
   ini_file:
     dest: /etc/php/{{ php_version }}/fpm/pool.d/www.conf
     section: www
     option: listen 
-    value: 9000
+    value: 90{{ php_version|default('70')|regex_replace('[^0-9]', '') }}
 
 - name: Set request_terminate_timeout to "900s" in www.conf
   ini_file:
