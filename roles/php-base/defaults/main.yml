@@ -1,0 +1,20 @@
+---
+php_modules:
+  - php{{ php_version }}-cli
+  - php{{ php_version }}-common
+  - php{{ php_version }}-curl
+  - php{{ php_version }}-dev
+  - php{{ php_version }}-gd
+  - php{{ php_version }}-intl
+  - php{{ php_version }}-mcrypt
+  - php{{ php_version }}-mysql
+  - php{{ php_version }}-pgsql
+  - php{{ php_version }}-xmlrpc
+  - php{{ php_version }}-xsl
+  - php{{ php_version }}-bcmath
+  - php{{ php_version }}-ldap
+  - php{{ php_version }}-soap
+  - php{{ php_version }}-mbstring
+  - php{{ php_version }}-zip 
+  - php{{ php_version }}-bz2
+  - php{{ php_version }}-tidy

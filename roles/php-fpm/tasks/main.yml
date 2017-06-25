@@ -1,7 +1,7 @@
 ---
-- name: Install php 7.0 fpm
+- name: Install php {{ php_version }} fpm
   apt:
-    pkg: php7.0-fpm
+    pkg: php{{ php_version }}-fpm
     state: present
     install_recommends: no
 
@@ -19,13 +19,13 @@
     owner: www-data
     mode: u=rwx,g=rx,o=rx
 
-- name: Adding "/etc/php/7.0/fpm/php.ini" to "php_ini_path_list" array
+- name: Adding "/etc/php/{{ php_version }}/fpm/php.ini" to "php_ini_path_list" array
   set_fact: 
-    php_ini_path_list: "{{ php_ini_path_list + [ '/etc/php/7.0/fpm/php.ini' ] }} "
+    php_ini_path_list: "{{ php_ini_path_list + [ '/etc/php/{{ php_version }}/fpm/php.ini' ] }} "
 
 - name: Set max_execution_time to 900 for fpm php.ini
   ini_file:
-    dest: /etc/php/7.0/fpm/php.ini
+    dest: /etc/php/{{ php_version }}/fpm/php.ini
     section: PHP
     option: max_execution_time
     value: 900
@@ -44,70 +44,70 @@
 
 - name: Set error_log to "/var/log/php/error.log" in php-fpm.conf
   ini_file:
-    dest: /etc/php/7.0/fpm/php-fpm.conf
+    dest: /etc/php/{{ php_version }}/fpm/php-fpm.conf
     section: global
     option: error_log
     value: /var/log/php/error.log
 
 - name: Set log_level to "notice" in php-fpm.conf
   ini_file:
-    dest: /etc/php/7.0/fpm/php-fpm.conf
+    dest: /etc/php/{{ php_version }}/fpm/php-fpm.conf
     section: global
     option: log_level 
     value: notice
     
 - name: Set daemonize to yes in php-fpm.conf
   ini_file:
-    dest: /etc/php/7.0/fpm/php-fpm.conf
+    dest: /etc/php/{{ php_version }}/fpm/php-fpm.conf
     section: global
     option: daemonize
     value: "yes"
     
 - name: Setiing user to www-data
   ini_file:
-    dest: /etc/php/7.0/fpm/pool.d/www.conf
+    dest: /etc/php/{{ php_version }}/fpm/pool.d/www.conf
     section: www
     option: user 
     value: www-data
 
 - name: Setiing group to www-data
   ini_file:
-    dest: /etc/php/7.0/fpm/pool.d/www.conf
+    dest: /etc/php/{{ php_version }}/fpm/pool.d/www.conf
     section: www
     option: group 
     value: www-data
 
 - name: Set listen to 9000 in www.conf
   ini_file:
-    dest: /etc/php/7.0/fpm/pool.d/www.conf
+    dest: /etc/php/{{ php_version }}/fpm/pool.d/www.conf
     section: www
     option: listen 
     value: 9000
 
 - name: Set request_terminate_timeout to "900s" in www.conf
   ini_file:
-    dest: /etc/php/7.0/fpm/pool.d/www.conf
+    dest: /etc/php/{{ php_version }}/fpm/pool.d/www.conf
     section: www
     option: request_terminate_timeout 
     value: 900s
 
 - name: Set request_slowlog_timeout to "180s" in www.conf
   ini_file:
-    dest: /etc/php/7.0/fpm/pool.d/www.conf
+    dest: /etc/php/{{ php_version }}/fpm/pool.d/www.conf
     section: www
     option: request_slowlog_timeout 
     value: 180s
 
 - name: Set slowlog to "/var/log/php/slow.log" in www.conf
   ini_file:
-    dest: /etc/php/7.0/fpm/pool.d/www.conf
+    dest: /etc/php/{{ php_version }}/fpm/pool.d/www.conf
     section: www
     option: slowlog
     value: /var/log/php/slow.log
 
 - name: Set catch_workers_output to "yes" in www.conf
   ini_file:
-    dest: /etc/php/7.0/fpm/pool.d/www.conf
+    dest: /etc/php/{{ php_version }}/fpm/pool.d/www.conf
     section: www
     option: catch_workers_output
     value: yes
