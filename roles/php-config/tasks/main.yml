@@ -13,7 +13,7 @@
 - name: Set opcache.enable to 1
   ini_file:
     dest: "{{ item }}"
-    section: opcache
+    section: Opcache
     option: opcache.enable
     value: 1
   with_items: "{{ php_ini_path_list }}"
@@ -21,7 +21,7 @@
 - name: Set opcache.enable_cli to 0
   ini_file:
     dest: "{{ item }}"
-    section: opcache
+    section: Opcache
     option: opcache.enable_cli
     value: 0
   with_items: "{{ php_ini_path_list }}"
@@ -29,7 +29,7 @@
 - name: Set opcache.interned_strings_buffer to 32
   ini_file:
     dest: "{{ item }}"
-    section: opcache
+    section: Opcache
     option: opcache.interned_strings_buffer
     value: 32
   with_items: "{{ php_ini_path_list }}"
@@ -37,7 +37,7 @@
 - name: Set opcache.max_accelerated_files to 32531
   ini_file:
     dest: "{{ item }}"
-    section: opcache
+    section: Opcache
     option: opcache.max_accelerated_files
     value: 32531
   with_items: "{{ php_ini_path_list }}"
@@ -45,7 +45,7 @@
 - name: Set opcache.revalidate_freq to 0
   ini_file:
     dest: "{{ item }}"
-    section: opcache
+    section: Opcache
     option: opcache.revalidate_freq
     value: 0
   with_items: "{{ php_ini_path_list }}"
@@ -53,7 +53,7 @@
 - name: Set opcache.validate_timestamps to 1
   ini_file:
     dest: "{{ item }}"
-    section: opcache
+    section: Opcache
     option: opcache.validate_timestamps
     value: 1
   with_items: "{{ php_ini_path_list }}"
@@ -61,7 +61,7 @@
 - name: Set opcache.fast_shutdown to 0
   ini_file:
     dest: "{{ item }}"
-    section: opcache
+    section: Opcache
     option: opcache.fast_shutdown
     value: 0
   with_items: "{{ php_ini_path_list }}"
@@ -70,7 +70,7 @@
 - name: Set opcache.memory_consumption to 128
   ini_file:
     dest: "{{ item }}"
-    section: opcache
+    section: Opcache
     option: opcache.memory_consumption
     value: 128
   with_items: "{{ php_ini_path_list }}"
