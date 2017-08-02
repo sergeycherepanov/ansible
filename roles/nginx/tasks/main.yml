@@ -1,4 +1,9 @@
 ---
+- name: Remove apache2
+  apt:
+    pkg: apache2
+    state: absent
+
 - name: Install nginx
   apt:
     pkg: nginx
