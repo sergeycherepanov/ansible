@@ -1,0 +1,20 @@
+---
+- hosts: all
+  vars: 
+    - php_ini_path_list: []
+    - php_version: 5.6  
+  roles:
+    - roles/tools
+    - roles/nginx
+    - roles/traefik
+    - roles/php-base
+    - roles/php-fpm
+    - roles/php-config
+    - roles/composer
+    - roles/nodejs
+    - roles/percona-server
+  post_tasks:
+    - name: Restart php{{ php_version }}-fpm
+      service:
+        name: php{{ php_version }}-fpm
+        state: restarted
