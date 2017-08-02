@@ -1,6 +1,6 @@
-# Magento 1 config
+# WordpPess config
 server {
-    listen 127.0.0.1:1081 default_server;
+    listen 127.0.0.1:1086 default_server;
     server_name _;
 
     root /var/www;
@@ -12,33 +12,34 @@ server {
         rewrite / /index.php/$1;
     }
 
-    # Rewrite protected files and folders
-    location ~ ^(/app/|/media/downloadable/|/var/|/shell/|/pkginfo/|/media/customer/|/lib/|/includes/) {
-        rewrite ^ /index.php last;
-    }
-    
-#    # Protected admin area
-#    location /admin {
-#        auth_basic "Restricted";
-#        auth_basic_user_file /etc/nginx/.htpasswd;
-#    }
-#
-#    # Protected downloader area
-#    location /downloader {
-#        auth_basic "Restricted";
-#        auth_basic_user_file /etc/nginx/.htpasswd;
-#    }
-
     # deny access to .* hidden files
     location ~ /\. {
         deny all;
     }
-    
+
+    # Deny access to any files with a .php extension in the uploads directory
+    # Works in sub-directory installs and also in multisite network
+    # Keep logging the requests to parse later (or to pass to firewall utilities such as fail2ban)
+    location ~* /(?:uploads|files)/.*\.php$ {
+	deny all;
+    }
+
     # Set static files cache lifetime
     location ~* ^[^(\.php)]+\.(jpg|jpeg|gif|png|ico|css|pdf|ppt|txt|bmp|rtf|js)$ {
         access_log off;
         expires 1h;
         add_header Cache-Control public;
+    }
+
+    location = /favicon.ico {
+	log_not_found off;
+	access_log off;
+    }
+
+    location = /robots.txt {
+	allow all;
+	log_not_found off;
+	access_log off;
     }
 
     ## Forward paths like /js/index.php/x.js to relevant handler

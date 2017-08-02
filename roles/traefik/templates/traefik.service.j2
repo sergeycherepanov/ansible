@@ -7,6 +7,8 @@ Group=root
 # Environment="DO_AUTH_TOKEN={{ do_auth_token | default('') }}"
 ExecStart=/usr/local/bin/traefik
 Restart=always
+CPUShares=256
+MemoryLimit=256M
 
 [Install]
 WantedBy=multi-user.target

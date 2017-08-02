@@ -1,0 +1,38 @@
+---
+- name: "Creating /etc/nginx/sites-available/wordpress.conf"
+  template: 
+    src: sites-available/wordpress.conf.j2 
+    dest: /etc/nginx/sites-available/wordpress.conf
+    owner: root
+    group: root
+
+
+- name: "Link /etc/nginx/sites-enabled/wordpress.conf"
+  file: 
+    src: /etc/nginx/sites-available/wordpress.conf
+    dest: /etc/nginx/sites-enabled/wordpress.conf
+    owner: root
+    group: root
+    state: link
+
+- name: "Adding traefik config"
+  blockinfile:
+    dest: /etc/traefik/traefik.toml
+    marker: "# {mark} WORDPRESS"
+    block: |
+      [frontends.wordpress]
+      backend = "wordpress"
+      passHostHeader = true
+      [frontends.wordpress.routes.default]
+      priority = 10
+      rule = "PathPrefix:/"
+      [backends.wordpress.LoadBalancer]
+      method = "wrr"
+      [backends.wordpress.servers.localhost]
+      url = "http://127.0.0.1:1086"
+      weight = 1 
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
