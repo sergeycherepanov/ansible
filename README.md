@@ -5,10 +5,14 @@
 ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "bootstrap.yml"
 ```
 
-### Web-server (Traefik + Nginx + Php + Mysql)
+### Web-server (Traefik + Nginx + Php7.0 + Mysql)
 ```
-ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "tnpm.yml"
+ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "tnpm70.yml"
 ```
+
+### Web-server (Traefik + Nginx + Php5.6 + Mysql)
+```
+ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "tnpm56.yml"
 
 ### Magento v1.x
 ```

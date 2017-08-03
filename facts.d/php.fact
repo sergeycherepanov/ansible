@@ -1,0 +1,13 @@
+#!/bin/bash
+
+service_active_php_fpm_version=$(systemctl list-units -t service --no-pager --no-legend | grep active | grep php | awk '{print $1}' | grep -o '[0-9][0-9\.]*[0-9]*' | head -1)
+
+php_ini_path_list=($(find "/etc/php/${service_active_php_fpm_version}" -name php.ini 2>/dev/null | while read line; do echo "\""$line"\""; done))
+php_ini_path_list=$(OLD_IFS="$IFS"; IFS=,; echo "${php_ini_path_list[*]}"; IFS="$OLD_IFS")
+
+cat <<EOF
+{
+    "version": "${service_active_php_fpm_version}",
+    "ini_path_list": [${php_ini_path_list}]
+}
+EOF

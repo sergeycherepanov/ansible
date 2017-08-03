@@ -2,5 +2,12 @@
 - hosts: all
   gather_facts: False
   tasks:
-    - name: 'install python'
+    - name: 'Installing python'
       raw: "sh -c 'test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)'"
+      
+    - name: 'Copying facts.d'
+      copy:
+        src: facts.d
+        dest:  /etc/ansible/
+        owner: root
+        mode: u=rwx,g=rx,o=rx

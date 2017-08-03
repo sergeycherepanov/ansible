@@ -3,5 +3,6 @@
   vars: 
     - php_ini_path_list: "{{ ansible_local.php.version|default([]) }}"
     - php_version: "{{ ansible_local.php.version|default(7.0) }}"
-  roles:
-    - roles/phpmyadmin
+  tasks:
+    - name: Dump all vars
+      action: template src=dump_vars.j2 dest=/tmp/ansible_vars.dump
