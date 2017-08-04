@@ -25,7 +25,7 @@ server {
     }
 
     # Set static files cache lifetime
-    location ~* \.(svg||ttf|woff|jpg|jpeg|gif|png|ico|css|pdf|ppt|txt|bmp|rtf|js)$ {
+    location ~* \.(svg|ttf|woff|jpg|jpeg|gif|png|ico|css|pdf|ppt|txt|bmp|rtf|js)$ {
         access_log off;
         expires 1h;
         add_header Cache-Control public;
