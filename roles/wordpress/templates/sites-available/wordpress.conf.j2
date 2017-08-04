@@ -21,11 +21,11 @@ server {
     # Works in sub-directory installs and also in multisite network
     # Keep logging the requests to parse later (or to pass to firewall utilities such as fail2ban)
     location ~* /(?:uploads|files)/.*\.php$ {
-	deny all;
+        deny all;
     }
 
     # Set static files cache lifetime
-    location ~* ^[^(\.php)]+\.(jpg|jpeg|gif|png|ico|css|pdf|ppt|txt|bmp|rtf|js)$ {
+    location ~* \.(svg||ttf|woff|jpg|jpeg|gif|png|ico|css|pdf|ppt|txt|bmp|rtf|js)$ {
         access_log off;
         expires 1h;
         add_header Cache-Control public;
