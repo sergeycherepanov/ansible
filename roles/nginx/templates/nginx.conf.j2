@@ -35,8 +35,9 @@ http {
 
     gzip on;
     gzip_proxied any;
-    gzip_types text/plain text/xml text/css application/javascript application/json;
+    gzip_types text/plain text/xml text/css application/javascript application/json image/svg+xml application/ttf application/x-ttf application/x-font-ttf font/opentype font/x-woff font/ttf;
     gzip_vary on;
+    gzip_comp_level 1;
 
     include /etc/nginx/conf.d/*.conf;
     include /etc/nginx/sites-enabled/*.conf;
