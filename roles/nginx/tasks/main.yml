@@ -47,6 +47,14 @@
     path: /etc/nginx/sites-enabled/default.conf
     state: absent
 
+- name: "Linking /etc/nginx/sites-enabled/status.conf"
+  file: 
+    src: /etc/nginx/sites-available/status.conf
+    dest: /etc/nginx/sites-enabled/status.conf
+    owner: root
+    group: root
+    state: link
+
 - name: Restart nginx
   service:
     name: nginx

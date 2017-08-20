@@ -6,7 +6,6 @@
     owner: root
     group: root
 
-
 - name: "Link /etc/nginx/sites-enabled/magento1.conf"
   file: 
     src: /etc/nginx/sites-available/magento1.conf
