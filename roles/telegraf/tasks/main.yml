@@ -26,6 +26,7 @@
     dest: /etc/telegraf/telegraf.conf.dist
     owner: root
     mode: u=rw,g=r,o=r
+    force: no
 
 - name: "Creating /etc/telegraf/telegraf.conf from template"
   template:
