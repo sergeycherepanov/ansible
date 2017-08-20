@@ -2,12 +2,12 @@ server {
     listen 127.0.0.1:1080 default_server;
     server_name localhost;
     
-    location ~ ^/status) {
+    location ~ ^/status$ {
         access_log off;
         stub_status on; 
     }
     
-    location ~ ^/status_php-fpm)$ {
+    location ~ ^/status_php-fpm$ {
         access_log off;
         include fastcgi_params;
         fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
