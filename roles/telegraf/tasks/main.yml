@@ -1,0 +1,42 @@
+--- 
+- name: "Installing influxdata repository"
+  shell: |
+    curl -sL https://repos.influxdata.com/influxdb.key | sudo apt-key add -
+    source /etc/lsb-release
+    echo "deb https://repos.influxdata.com/${DISTRIB_ID,,} ${DISTRIB_CODENAME} stable" | sudo tee /etc/apt/sources.list.d/influxdb.list
+  args:
+    chdir: /tmp
+
+- name: "Update apt cache"
+  apt: 
+    update_cache: yes
+
+- name: "Installing telegraf"
+  apt:
+    pkg: telegraf
+    state: present
+
+- name: "Fetch hostname"
+  shell: hostname -f
+  register: telegraf_hostname
+
+- name: "Backing up /etc/telegraf/telegraf.conf"
+  copy:
+    src: /etc/telegraf/telegraf.conf
+    dest: /etc/telegraf/telegraf.conf.dist
+    owner: root
+    mode: u=rw,g=r,o=r
+
+- name: "Creating /etc/telegraf/telegraf.conf from template"
+  template:
+    src: telegraf.conf.j2
+    dest: /etc/telegraf/telegraf.conf
+    owner: root
+    group: root
+    mode: u=rw,g=r,o=r
+
+- name: "Enable telegraf service"
+  systemd:
+    name: telegraf
+    state: started
+    enabled: yes

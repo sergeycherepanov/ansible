@@ -1,0 +1,4 @@
+---
+influxdb_url: "http://moon.srv.today:8086"
+influxdb_user: ""
+influxdb_password: ""
