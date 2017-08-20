@@ -39,5 +39,5 @@
 - name: "Enable telegraf service"
   systemd:
     name: telegraf
-    state: started
+    state: restarted
     enabled: yes
