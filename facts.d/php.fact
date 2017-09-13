@@ -5,7 +5,7 @@ service_active_php_fpm_version=$(systemctl list-units -t service --no-pager --no
 php_ini_path_list=($(find "/etc/php/${service_active_php_fpm_version}" -name php.ini 2>/dev/null | while read line; do echo "\""$line"\""; done))
 php_ini_path_list=$(OLD_IFS="$IFS"; IFS=,; echo "${php_ini_path_list[*]}"; IFS="$OLD_IFS")
 
-cat <<EOF
+[[ ! -z "${service_active_php_fpm_version}" ]] && cat <<EOF
 {
     "version": "${service_active_php_fpm_version}",
     "ini_path_list": [${php_ini_path_list}]

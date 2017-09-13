@@ -1,7 +1,7 @@
 ---
 - hosts: all
   vars: 
-    - php_ini_path_list: "{{ ansible_local.php.version|default([]) }}"
+    - php_ini_path_list: "{{ ansible_local.php.ini_path_list|default([]) }}"
     - php_version: "{{ ansible_local.php.version|default(5.6) }}"
   roles:
     - roles/php-base
