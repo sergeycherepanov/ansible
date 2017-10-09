@@ -2,3 +2,8 @@
 - hosts: all
   roles:
     - roles/symfony
+-P PREROUTING DROP
+-P OUTPUT ACCEPT
+-A PREROUTING -i ens4 -p tcp -m tcp --dport 22 -j ACCEPT
+-A PREROUTING -i ens4 -p tcp -m tcp --dport 80 -j ACCEPT
+-A PREROUTING -i ens4 -p tcp -m tcp --dport 22 -j RETURN

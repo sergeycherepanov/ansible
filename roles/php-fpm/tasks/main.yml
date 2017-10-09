@@ -19,10 +19,14 @@
     owner: www-data
     mode: u=rwx,g=rx,o=rx
 
+- name: Register php_fpm_ini_path ("/etc/php/{{ php_version }}/fpm/php.ini")
+  set_fact: 
+    php_fpm_ini_path: "/etc/php/{{ php_version }}/cli/php.ini"
+
 - name: Adding "/etc/php/{{ php_version }}/fpm/php.ini" to "php_ini_path_list" array
   set_fact: 
-    php_ini_path_list: "{{ php_ini_path_list }} + [ '/etc/php/{{ php_version }}/fpm/php.ini' ]"
-  when: "'/etc/php/{{ php_version }}/cli/php.ini' not in php_ini_path_list"
+    php_ini_path_list: "{{ php_ini_path_list }} + [ php_fpm_ini_path ]"
+  when: "php_fpm_ini_path not in php_ini_path_list"
 
 - name: Set max_execution_time to 900 for fpm php.ini
   ini_file:

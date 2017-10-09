@@ -8,11 +8,15 @@
     name: "{{ item }}"
     state: present
   with_items: "{{ php_modules }}"
+  
+- name: Register php_cli_ini_path ("/etc/php/{{ php_version }}/cli/php.ini")
+  set_fact: 
+    php_cli_ini_path: "/etc/php/{{ php_version }}/cli/php.ini"
 
 - name: Adding "/etc/php/{{ php_version }}/cli/php.ini" to "php_ini_path_list" array
   set_fact: 
-    php_ini_path_list: "{{ php_ini_path_list }} + [ '/etc/php/{{ php_version }}/cli/php.ini' ]"
-  when: "'/etc/php/{{ php_version }}/cli/php.ini' not in php_ini_path_list"
+    php_ini_path_list: "{{ php_ini_path_list }} + [ php_cli_ini_path ]"
+  when: "php_cli_ini_path not in php_ini_path_list"
 
 - name: Setting max_execution_time to 0 for cli
   ini_file:
