@@ -1,0 +1,106 @@
+# OroPlatform config
+server {
+        listen 1090 default_server;
+        server_name _;
+
+#        if ($http_x_forwarded_proto = "http") {
+#            return 301 https://$host$request_uri;
+#        }
+
+        root /var/www/web;
+
+        index app.php;
+        
+        set php_version "{{ php_version|default('70')|regex_replace('[^0-9]', '') }}";
+
+        try_files $uri @rewrite;
+
+        location @rewrite {
+            rewrite ^/(.*)$ /app.php/$1;
+        }
+
+        location /server-status {
+             stub_status on;
+        }
+
+        location /status {
+            include fastcgi_params;
+            fastcgi_pass unix:/var/run/php/php7.0-app.sock;
+            fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        }
+
+        location ~ /\.ht {
+            deny all;
+        }
+
+        # Set static files cache lifetime
+        location ~* ^[^(\.php)]+\.(svg|ttf|woff|jpg|jpeg|gif|png|ico|css|pdf|ppt|txt|bmp|rtf|js)$ {
+            access_log off;
+            expires max;
+            add_header Cache-Control public;
+        }
+
+        location ~ /app\.php(/|$) {
+            access_log /var/log/nginx/app.access.log;
+            error_log /var/log/nginx/app.error.log;
+
+            fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+            if (!-f $document_root$fastcgi_script_name) {
+               return 404;
+            }
+            include                         fastcgi_params;
+            fastcgi_pass                    127.0.0.1:90$php_version;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            fastcgi_param  PATH_INFO        $fastcgi_path_info;
+            fastcgi_param  PHP_PATH         /usr/bin/php;
+            # fastcgi_param  HTTPS            on;
+            break;
+        }
+
+        location ~ /tracking\.php(/|$) {
+            access_log /var/log/nginx/tracking.access.log;
+            error_log /var/log/nginx/tracking.error.log;
+
+            fastcgi_split_path_info ^(.+?\.php)(/.*)$;
+            if (!-f $document_root$fastcgi_script_name) {
+                return 404;
+            }
+            include                         fastcgi_params;
+            fastcgi_pass                    127.0.0.1:90$php_version;
+            fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
+            fastcgi_param  PATH_INFO        $fastcgi_path_info;
+            fastcgi_param  PHP_PATH         /usr/bin/php;
+            # fastcgi_param  HTTPS            on;
+            break;
+        }
+        
+        location /ws {
+            reset_timedout_connection on;
+            
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-NginX-Proxy true;
+            proxy_set_header X-Forwarded-Proto $scheme;
+     
+            proxy_read_timeout 86400s;
+            proxy_send_timeout 180s;
+            
+            proxy_buffers 8 32k;
+            proxy_buffer_size 64k;
+     
+            proxy_pass http://127.0.0.1:8080;
+            proxy_redirect off;
+     
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+            
+            error_log /var/log/nginx/ws_error.log;
+            access_log /var/log/nginx/ws_access.log;
+        }
+
+        location ~ [^/]\.php(/|$) {
+            deny all;
+        }
+    }
