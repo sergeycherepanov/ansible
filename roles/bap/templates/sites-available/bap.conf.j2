@@ -11,7 +11,7 @@ server {
 
         index app.php;
         
-        set php_version "{{ php_version|default('70')|regex_replace('[^0-9]', '') }}";
+        set $php_version "{{ php_version|default('70')|regex_replace('[^0-9]', '') }}";
 
         try_files $uri @rewrite;
 
