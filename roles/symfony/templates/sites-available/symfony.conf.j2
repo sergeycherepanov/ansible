@@ -5,6 +5,14 @@ server {
     root /var/www/web;
 
     index app.php;
+    
+    FGGset $proxy_https "on";
+    set $proxy_port 443;
+
+    if ( $http_x_forwarded_proto != 'https' ) {
+       set $proxy_https off;
+       set $proxy_port 80;
+    }
 
     try_files $uri $uri/ @rewrite;
 
@@ -43,5 +51,8 @@ server {
         fastcgi_param  SCRIPT_FILENAME  $document_root$fastcgi_script_name;
         fastcgi_param  PATH_INFO        $fastcgi_path_info;
         fastcgi_param  PHP_PATH         /usr/bin/php;
+        fastcgi_param  HTTPS            $proxy_https;
+        fastcgi_param  SERVER_PORT      $proxy_port;
+        fastcgi_param  REMOTE_ADDR      $http_x_forwarded_for;
     }
 }
