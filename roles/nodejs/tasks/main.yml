@@ -4,7 +4,7 @@
     pkg: nodejs
     state: present
 
-- name: Install npm
-  apt:
-    pkg: npm
-    state: present
+#- name: Install npm
+#  apt:
+#    pkg: npm
+#    state: present
