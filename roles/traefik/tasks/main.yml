@@ -1,6 +1,6 @@
 --- 
 - name: "Get latest available Traefik release"
-  shell: "curl --silent https://github.com/containous/traefik/releases | pup '.release-timeline .label-latest .release-meta .css-truncate-target' text{} | head -1"
+  shell: "curl --silent https://github.com/containous/traefik/releases | pup '.release.label-latest .release-meta .css-truncate-target' text{} | head -1"
   register: traefik_version_output
   
 - name: Set fact "traefik_version" to "{{ traefik_version_output.stdout }}" 
