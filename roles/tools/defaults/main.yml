@@ -1,10 +1,9 @@
 ---
 pup_version: "v0.4.0"
 base_packages:
-  - python-software-properties 
+  - software-properties-common 
   - python-setuptools
   - python-pip
-  - software-properties-common 
   - apt-transport-https
   - ca-certificates
   - curl
