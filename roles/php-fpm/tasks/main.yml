@@ -68,14 +68,14 @@
     option: daemonize
     value: "yes"
     
-- name: Setiing user to www-data
+- name: Setting user to www-data
   ini_file:
     dest: /etc/php/{{ php_version }}/fpm/pool.d/www.conf
     section: www
     option: user 
     value: www-data
 
-- name: Setiing group to www-data
+- name: Setting group to www-data
   ini_file:
     dest: /etc/php/{{ php_version }}/fpm/pool.d/www.conf
     section: www
