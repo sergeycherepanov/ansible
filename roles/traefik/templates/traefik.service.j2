@@ -6,6 +6,8 @@ After=network.target
 User=root
 Group=root
 # Environment="DO_AUTH_TOKEN={{ do_auth_token | default('') }}"
+# Environment="CF_API_EMAIL={{ cf_api_email | default('john@example.com') }}"
+# Environment="CF_API_KEY={{ cf_api_key | default('ba1f2511fc30423bdbb183fe33f3dd0f') }}"
 ExecStart=/usr/local/bin/traefik
 ExecReload=/bin/kill -USR1 $MAINPID
 Restart=always

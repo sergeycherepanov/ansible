@@ -1,10 +1,16 @@
 server {
-    listen 127.0.0.1:1085 default_server;
+    listen 127.0.0.1:1095 default_server;
     server_name _;
 
-    root /var/www/web;
+    add_header X-Frame-Options "SAMEORIGIN";
+    add_header X-XSS-Protection "1; mode=block";
+    add_header X-Content-Type-Options "nosniff";
 
-    index app.php;
+    root /var/www/public;
+
+    index index.php;
+
+    charset utf-8;
     
     set $proxy_https "on";
     set $proxy_port 443;
@@ -16,11 +22,18 @@ server {
 
     try_files $uri $uri/ @rewrite;
 
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt  { access_log off; log_not_found off; }
+
     location @rewrite {
         rewrite ^/(.*)$ /app.php/$1;
     }
 
     location ~ /\.ht {
+        deny all;
+    }
+
+    location ~ /\.(?!well-known).* {
         deny all;
     }
 

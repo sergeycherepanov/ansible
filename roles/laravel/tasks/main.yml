@@ -1,0 +1,43 @@
+---
+- name: "Creating /etc/nginx/sites-available/laravel.conf"
+  template: 
+    src: sites-available/laravel.conf.j2
+    dest: /etc/nginx/sites-available/laravel.conf
+    owner: root
+    group: root
+
+
+- name: "Link /etc/nginx/sites-enabled/laravel.conf"
+  file: 
+    src: /etc/nginx/sites-available/laravel.conf
+    dest: /etc/nginx/sites-enabled/laravel.conf
+    owner: root
+    group: root
+    state: link
+
+- name: "Adding traefik config"
+  blockinfile:
+    dest: /etc/traefik/traefik.toml
+    marker: "# {mark} LARAVEL"
+    block: |
+      [frontends.laravel]
+      backend = "laravel"
+      passHostHeader = true
+      [frontends.laravel.routes.default]
+      priority = 10
+      rule = "PathPrefix:/"
+      [backends.laravel.LoadBalancer]
+      method = "wrr"
+      [backends.laravel.servers.localhost]
+      url = "http://127.0.0.1:1095"
+      weight = 1
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
+
+- name: Restart traefik
+  service:
+    name: traefik
+    state: restarted
