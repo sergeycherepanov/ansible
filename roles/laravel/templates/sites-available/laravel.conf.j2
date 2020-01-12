@@ -26,7 +26,7 @@ server {
     location = /robots.txt  { access_log off; log_not_found off; }
 
     location @rewrite {
-        rewrite ^/(.*)$ /app.php/$1;
+        rewrite ^/(.*)$ /index.php/$1;
     }
 
     location ~ /\.ht {
@@ -51,7 +51,7 @@ server {
         }
         include                         fastcgi_params;
         fastcgi_pass                    127.0.0.1:90{{ php_version|default('70')|regex_replace('[^0-9]', '') }};
-        fastcgi_index                   app.php;
+        fastcgi_index                   index.php;
         fastcgi_intercept_errors        on;
         fastcgi_ignore_client_abort     off;
         fastcgi_connect_timeout         10s;
