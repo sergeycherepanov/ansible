@@ -21,7 +21,7 @@
 
 - name: Register php_fpm_ini_path ("/etc/php/{{ php_version }}/fpm/php.ini")
   set_fact: 
-    php_fpm_ini_path: "/etc/php/{{ php_version }}/cli/php.ini"
+    php_fpm_ini_path: "/etc/php/{{ php_version }}/fpm/php.ini"
 
 - name: Adding "/etc/php/{{ php_version }}/fpm/php.ini" to "php_ini_path_list" array
   set_fact: 
