@@ -2,7 +2,7 @@
 - hosts: all
   gather_facts: False
   tasks:
-    - name: 'Installing python'
+    - name: 'Install python if not installed'
       raw: "sh -c 'test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)'"
       
     - name: 'Copying facts.d'

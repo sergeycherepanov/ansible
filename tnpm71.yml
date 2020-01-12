@@ -1,8 +1,28 @@
 ---
 - hosts: all
+  gather_facts: False
   vars: 
     - php_ini_path_list: "{{ ansible_local.php.ini_path_list|default([]) }}"
     - php_version: "{{ ansible_local.php.version|default(7.1) }}"
+  pre_tasks:
+    - name: 'Install python if not installed'
+      raw: "sh -c 'test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)'"
+
+    - name: 'Installing facts.d'
+      copy:
+        src: facts.d
+        dest:  /etc/ansible/
+        owner: root
+        mode: u=rwx,g=rx,o=rx
+
+    - name: Gathering facts
+      setup:
+
+    - name: 'Printing php_version'
+      debug: var=php_version
+
+    - name: 'Printing php_ini_path_list'
+      debug: var=php_ini_path_list
   roles:
     - roles/tools
     - roles/nginx

@@ -25,7 +25,7 @@
 
 - name: Adding "/etc/php/{{ php_version }}/fpm/php.ini" to "php_ini_path_list" array
   set_fact: 
-    php_ini_path_list: "{{ php_ini_path_list }} + [ php_fpm_ini_path ]"
+    php_ini_path_list: "{{ php_ini_path_list + [ php_fpm_ini_path ] }}"
   when: "php_fpm_ini_path not in php_ini_path_list"
 
 - name: Set max_execution_time to 900 for fpm php.ini
