@@ -3,7 +3,7 @@
   gather_facts: False
   vars: 
     - php_ini_path_list: "{{ ansible_local.php.ini_path_list|default([]) }}"
-    - php_version: "{{ ansible_local.php.version|default(7.4) }}"
+    - php_version: "{{ ansible_local.php.version|default(7.0) }}"
   pre_tasks:
     - name: 'Install python if not installed'
       raw: "sh -c 'test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)'"
@@ -32,7 +32,7 @@
     - roles/php-config
     - roles/composer
     - roles/nodejs
-    - roles/percona-server
+    - roles/swap
   post_tasks:
     - name: Restart php{{ php_version }}-fpm
       service:

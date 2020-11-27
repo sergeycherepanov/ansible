@@ -24,3 +24,4 @@ base_packages:
   - unzip
   - redis-tools
   - netcat-openbsd
+  - jq

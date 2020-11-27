@@ -12,7 +12,7 @@
     - roles/php-config
     - roles/composer
     - roles/nodejs
-    - roles/percona-server
+    - roles/swap
   post_tasks:
     - name: Restart php{{ php_version }}-fpm
       service:

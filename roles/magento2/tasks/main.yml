@@ -1,0 +1,37 @@
+---
+- name: "Creating /etc/nginx/sites-available/magento2.conf"
+  template: 
+    src: sites-available/magento2.conf.j2
+    dest: /etc/nginx/sites-available/magento2.conf
+    owner: root
+    group: root
+
+- name: "Link /etc/nginx/sites-enabled/magento2.conf"
+  file: 
+    src: /etc/nginx/sites-available/magento2.conf
+    dest: /etc/nginx/sites-enabled/magento2.conf
+    owner: root
+    group: root
+    state: link
+
+- name: "Adding traefik config"
+  blockinfile:
+    dest: /etc/traefik/traefik.toml
+    marker: "# {mark} MAGENTO2"
+    block: |
+      [frontends.magento2]
+      backend = "magento2"
+      passHostHeader = true
+      [frontends.magento2.routes.default]
+      priority = 10
+      rule = "PathPrefix:/"
+      [backends.magento2.LoadBalancer]
+      method = "wrr"
+      [backends.magento2.servers.localhost]
+      url = "http://127.0.0.1:1083"
+      weight = 1 
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted

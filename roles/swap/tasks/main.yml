@@ -1,0 +1,42 @@
+---
+- stat:
+    path: /swapfile
+  register: swapfile
+
+- name: Create swapfile
+  shell: sudo fallocate -l 1G /swapfile
+  when: not swapfile.stat.exists
+
+- name: chmod 600 /swapfile
+  shell: chmod 600 /swapfile
+  when: not swapfile.stat.exists
+
+- name: mkswap /swapfile
+  shell: mkswap /swapfile
+  when: not swapfile.stat.exists
+
+- name: swapon /swapfile
+  shell: swapon /swapfile
+  when: not swapfile.stat.exists
+
+- name: Configure fastab
+  lineinfile:
+    dest: '/etc/fstab'
+    line: '{{ item }}'
+    with_items:
+      - '/swapfile none swap sw 0 0'
+  when: not swapfile.stat.exists
+
+- name: Configure Swap
+  lineinfile:
+    dest: '/etc/sysctl.conf'
+    line: '{{ item }}'
+    with_items:
+      - 'vm.swappiness=10'
+      - 'vm.vfs_cache_pressure=50'
+  when: not swapfile.stat.exists
+
+- name: sysctl -p
+  shell: sysctl -p
+  when: not swapfile.stat.exists
+

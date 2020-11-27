@@ -1,7 +1,7 @@
 ---
-- name: Downloading composer to /usr/local/bin/composer.phar
+- name: Downloading https://getcomposer.org/composer-1.phar
   get_url:
-    url: https://getcomposer.org/composer.phar
+    url: https://getcomposer.org/composer-1.phar
     dest: /usr/local/bin/composer.phar
     mode: u=rwx,g=rx,o=rx
 
