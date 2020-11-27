@@ -1,37 +1,46 @@
 # Accepted values, in order of severity: "DEBUG", "INFO", "WARN", "ERROR", "FATAL", "PANIC"
 logLevel = "WARN"
 
-# Entrypoints to be used by frontends that do not specify any entrypoint.
-# Each frontend can specify its own entrypoints.
-#
-# Optional
-# Default: ["http"]
-#
-# defaultEntryPoints = ["http", "https"]
+[traefikLog]
+filePath = "/var/log/traefik/traefik.log"
+format   = "json"
 
-defaultEntryPoints = ["http"]
+[accessLog]
+filePath = "/var/log/traefik/access.log"
+format = "json"
+
+defaultEntryPoints = ["http", "https"]
 
 InsecureSkipVerify = true
 
+[entryPoints]
 [entryPoints.http]
 address = ":80"
-
-[web]
+[entryPoints.http.redirect]
+entryPoint = "https"
+[entryPoints.https]
+address = ":443"
+[entryPoints.https.tls]
+[entryPoints.traefik]
 address = ":8000"
 
+# [acme]
+# email = "john@example.com"
+# storage = "/etc/traefik/acme.json"
+# entryPoint = "https"
+# dnsProvider = "digitalocean"
+# [acme.dnsChallenge]
+# provider = "digitalocean"
+# delayBeforeCheck = 0
+
+# [[acme.domains]]
+# main = "*.example.com"
+# sans = ["example.com"]
+
 [file]
+directory = "/etc/traefik/conf.d/"
 watch = true
 
-# 
-# # Example routing
-# 
-# [frontends.default]
-# backend = "default"
-# passHostHeader = true
-# [frontends.default.routes.default]
-# priority = 100
-# [backends.default.LoadBalancer]
-# method = "wrr"
-# [backends.default.servers.localhost]
-# url = "https://127.0.0.1:1080"
-# weight = 1
+[api]
+entryPoint = "traefik"
+dashboard = true

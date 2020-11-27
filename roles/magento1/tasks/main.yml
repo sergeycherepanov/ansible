@@ -35,3 +35,8 @@
   service:
     name: nginx
     state: restarted
+
+- name: Restart traefik
+  service:
+    name: traefik
+    state: restarted

@@ -4,4 +4,4 @@
     - php_ini_path_list: "{{ ansible_local.php.ini_path_list|default([]) }}"
     - php_version: "{{ ansible_local.php.version|default(7.4) }}"
   roles:
-    - roles/magento1
+    - roles/magento2

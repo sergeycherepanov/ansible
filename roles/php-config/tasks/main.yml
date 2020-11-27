@@ -99,6 +99,14 @@
     value: 512M
   with_items: "{{ php_ini_path_list }}"
 
+- name: Set memory_limit to -1 for CLI
+  ini_file:
+    dest: "{{ item }}"
+    section: PHP
+    option: memory_limit
+    value: -1
+  with_items: "{{ php_cli_ini_path }}"
+
 - name: Set detect_unicode to Off
   ini_file:
     dest: "{{ item }}"

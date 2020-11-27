@@ -1,4 +1,7 @@
 ---
+- name: 'Printing php_version'
+  debug: var=php_version
+
 - name: "Creating /etc/nginx/sites-available/magento2.conf"
   template: 
     src: sites-available/magento2.conf.j2
@@ -15,23 +18,18 @@
     state: link
 
 - name: "Adding traefik config"
-  blockinfile:
-    dest: /etc/traefik/traefik.toml
-    marker: "# {mark} MAGENTO2"
-    block: |
-      [frontends.magento2]
-      backend = "magento2"
-      passHostHeader = true
-      [frontends.magento2.routes.default]
-      priority = 10
-      rule = "PathPrefix:/"
-      [backends.magento2.LoadBalancer]
-      method = "wrr"
-      [backends.magento2.servers.localhost]
-      url = "http://127.0.0.1:1083"
-      weight = 1 
+  template:
+    src: magento2.toml.j2
+    dest: /etc/traefik/conf.d/magento2.toml
+    owner: root
+    group: root
 
 - name: Restart nginx
   service:
     name: nginx
+    state: restarted
+
+- name: Restart traefik
+  service:
+    name: traefik
     state: restarted

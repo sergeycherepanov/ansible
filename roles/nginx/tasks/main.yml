@@ -16,12 +16,12 @@
     owner: root
     group: root
 
-- name: "Creates /etc/nginx/sites-available/vhosts.conf"
-  template: 
-    src: sites-available/vhosts.conf.j2
-    dest: /etc/nginx/sites-available/vhosts.conf
-    owner: root
-    group: root
+#- name: "Creates /etc/nginx/sites-available/vhosts.conf"
+#  template:
+#    src: sites-available/vhosts.conf.j2
+#    dest: /etc/nginx/sites-available/vhosts.conf
+#    owner: root
+#    group: root
 
 - name: "Creates /etc/nginx/sites-available/status.conf"
   template: 

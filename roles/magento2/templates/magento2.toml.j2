@@ -1,0 +1,20 @@
+[frontends.magento2]
+backend = "magento2"
+passHostHeader = true
+entrypoints = ["https", "http"]
+priority = 100
+[frontends.magento2.routes.default]
+priority = 10
+rule = "PathPrefix:/"
+[frontends.magento2.ratelimit]
+extractorfunc = "client.ip"
+[frontends.magento2.ratelimit.rateset.rateset1]
+period = "10s"
+average = 100
+burst = 200
+
+[backends.magento2.LoadBalancer]
+method = "wrr"
+[backends.magento2.servers.localhost]
+url = "http://127.0.0.1:1083"
+weight = 1

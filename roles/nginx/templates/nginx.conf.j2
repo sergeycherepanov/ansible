@@ -45,10 +45,10 @@ http {
     fastcgi_connect_timeout         10s;
     fastcgi_send_timeout            180s;
     fastcgi_read_timeout            180s;
-    fastcgi_buffer_size             128k;
-    fastcgi_buffers                 4   256k;
-    fastcgi_busy_buffers_size       256k;
-    fastcgi_temp_file_write_size    256k;
+    fastcgi_buffer_size             32k;
+    fastcgi_buffers                 16 16k;
+    fastcgi_busy_buffers_size       240k;
+    fastcgi_temp_file_write_size    240k;
 
     include /etc/nginx/conf.d/*.conf;
     include /etc/nginx/sites-enabled/*.conf;
