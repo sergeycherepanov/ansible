@@ -5,9 +5,8 @@
 
 - name: Installing php{{ php_version }} modules
   apt:
-    name: "{{ item }}"
+    name: "{{ php_modules }}"
     state: present
-  with_items: "{{ php_modules }}"
   
 - name: Register php_cli_ini_path ("/etc/php/{{ php_version }}/cli/php.ini")
   set_fact: 

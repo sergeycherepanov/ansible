@@ -6,7 +6,8 @@
     - php_version: "{{ ansible_local.php.version|default(7.4) }}"
   pre_tasks:
     - name: 'Install python if not installed'
-      raw: "sh -c 'test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)'"
+      raw: "sh -c 'test -e /usr/bin/python || (apt -yqq update && apt install -yqq python-minimal)'"
+      environment: DEBIAN_FRONTEND=noninteractive
 
     - name: 'Installing facts.d'
       copy:
