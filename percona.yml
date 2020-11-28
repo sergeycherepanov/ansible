@@ -1,7 +1,0 @@
----
-- hosts: all
-  vars: 
-    - php_ini_path_list: "{{ ansible_local.php.version|default([]) }}"
-  roles:
-    - roles/tools
-    - roles/percona-server

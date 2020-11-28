@@ -7,6 +7,7 @@
   pre_tasks:
     - name: 'Install python if not installed'
       raw: "sh -c 'test -e /usr/bin/python || (apt -y update && apt install -y python-minimal)'"
+      environment: DEBIAN_FRONTEND=noninteractive
 
     - name: 'Installing facts.d'
       copy:

@@ -1,33 +1,19 @@
 # Ansible Roles
 
-### Bootstrap
+### Web-server (Traefik + Nginx + Php7.4)
 ```
-$ python ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "bootstrap.yml"
-```
-
-### Web-server (Traefik + Nginx + Php7.0 + Mysql)
-```
-$ python ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "tnpm70.yml"
+$ python ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "tnp74.yml"
 ```
 
-### Web-server (Traefik + Nginx + Php5.6 + Mysql)
+### Percona Server 5.7
 ```
-$ python ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "tnpm56.yml"
-```
-
-### Magento v1.x
-```
-$ python ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "magento1.yml"
+$ python ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "percona57.yml"
 ```
 
-### Magento v1.x VHosts
-```
-$ python ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "magento1_vhosts.yml"
-```
 
-### Symfony
+### Magento v2.x
 ```
-$ python ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "symfony.yml"
+$ python ansible-playbook -u root -i "XXX.XXX.XXX.XXX," "magento2.yml"
 ```
 
 ### PhpMyAdmin
