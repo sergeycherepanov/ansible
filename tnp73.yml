@@ -6,7 +6,7 @@
     - php_version: "{{ ansible_local.php.version|default(7.3) }}"
   pre_tasks:
     - name: 'Install python if not installed'
-      raw: "sh -c 'test -e /usr/bin/python || (apt -yqq update && apt install -yqq python-minimal)'"
+      raw: "sh -c 'test -e /usr/bin/python || (apt -yqq update && apt install -yqq python3-minimal)'"
       environment:
         DEBIAN_FRONTEND: noninteractive
 
